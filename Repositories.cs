@@ -10,7 +10,7 @@ namespace create_repo
   class RepositoryUtils
   {
     public static async Task<RepoResponse> CreateRepository(
-      string name, string description, string visibility, string template
+      string name, string description, string visibility, string template, string orgName
     )
     {
       
@@ -24,9 +24,7 @@ namespace create_repo
         JsonSerializer.Serialize<Repository>(newRepo),  UnicodeEncoding.UTF8, "application/json"
       );
 
-     var Response =  await Utils.client.PostAsync(
-        "https://api.github.com/user/repos", body
-      );
+     var Response = await Utils.PostRepo(body, orgName);
 
       if(Response.IsSuccessStatusCode)
       {

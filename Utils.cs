@@ -1,6 +1,7 @@
 using System;
 using System.Net.Http;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 
 namespace create_repo
@@ -19,7 +20,7 @@ namespace create_repo
 
     public static string CheckForString(string response, string prompt)
     {
-      if(response.Length > 0)
+      if(!String.IsNullOrEmpty(response))
       {
         return response;
       } else
@@ -58,6 +59,21 @@ namespace create_repo
       string gitCommand = "git";
       Process GitProcess = Process.Start(gitCommand, process);
       GitProcess.WaitForExit();
+    }
+
+    public static async Task<HttpResponseMessage> PostRepo(StringContent body, string orgName)
+    {
+      if(String.IsNullOrEmpty(orgName))
+      {
+        return await Utils.client.PostAsync(
+        "https://api.github.com/user/repos", body
+        );
+      } else 
+      {
+        return await Utils.client.PostAsync(
+          $"https://api.github.com/orgs/{orgName}/repos", body
+        );
+      }
     }
 
     public static void PushRepo(string location, string commitMessage)

@@ -1,5 +1,6 @@
 ﻿using CommandLine;
 using System.Threading.Tasks;
+using System;
 
 namespace create_repo
 {
@@ -17,7 +18,7 @@ namespace create_repo
             await Authentication.Authenticate();
 
             var RepoResponse = await RepositoryUtils.CreateRepository(
-                Options.name, Options.description, Options.visibility, Options.template
+                Options.name, Options.description, Options.visibility, Options.template, Options.orgName
             );
 
             if(RepoResponse.isSuccess)
