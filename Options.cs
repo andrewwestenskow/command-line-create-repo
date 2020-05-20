@@ -17,7 +17,7 @@ namespace create_repo
     public string description {get; set;}
     [Option("visibility", Required = false, Default = "public", HelpText = "Repo visibility 'public' or 'private'")]
     public string visibility {get; set;}
-    [Option("org", Required = false, HelpText = "Org org name for repo")]
+    [Option("org", Required = false, HelpText = "Org name for repo")]
     public string orgName {get; set;}
   }
 }
